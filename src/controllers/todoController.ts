@@ -1,58 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../services/db';
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     Todo:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *           description: The auto-generated ID of the todo.
- *         title:
- *           type: string
- *           description: The title of the todo.
- *         completed:
- *           type: boolean
- *           description: The completion status of the todo.
- *       example:
- *         id: 1
- *         title: Buy groceries
- *         completed: false
- *     TodoInput:
- *       type: object
- *       properties:
- *         title:
- *           type: string
- *           description: The title of the todo.
- *       required:
- *         - title
- *       example:
- *         title: Buy groceries
- */
-
-
-/**
- * @swagger
- * /todos:
- *   get:
- *     summary: Get all todos
- *     description: Retrieve a list of all todos from the database.
- *     responses:
- *       200:
- *         description: A list of todos.
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Todo'
- *       500:
- *         description: Internal server error.
- */
-
 
 
 
@@ -68,30 +16,6 @@ export const getTodos = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-/**
- * @swagger
- * /todo:
- *   post:
- *     summary: Create a new todo
- *     description: Add a new todo to the database.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/TodoInput'
- *     responses:
- *       201:
- *         description: The created todo.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Todo'
- *       400:
- *         description: Bad request. Title is required.
- *       500:
- *         description: Internal server error.
- */
 
 export const createTodo = async (req: Request, res: Response): Promise<void> => {
   const { title } = req.body;
@@ -101,43 +25,6 @@ export const createTodo = async (req: Request, res: Response): Promise<void> => 
     return;
   }
 
-  /**
- * @swagger
- * /todo/{id}:
- *   put:
- *     summary: Update a todo
- *     description: Update the completion status of a todo by its ID.
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: The ID of the todo to update.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               completed:
- *                 type: boolean
- *                 description: The new completion status of the todo.
- *     responses:
- *       200:
- *         description: The updated todo.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Todo'
- *       400:
- *         description: Bad request. Invalid ID or completed status.
- *       404:
- *         description: Todo not found.
- *       500:
- *         description: Internal server error.
- */
 
 
 
@@ -177,29 +64,6 @@ export const updateTodo = async (req: Request, res: Response): Promise<void> => 
   }
 };
 
-/**
- * @swagger
- * /todo/{id}:
- *   delete:
- *     summary: Delete a todo
- *     description: Delete a todo by its ID.
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: The ID of the todo to delete.
- *     responses:
- *       200:
- *         description: Todo deleted successfully.
- *       400:
- *         description: Bad request. Invalid ID.
- *       404:
- *         description: Todo not found.
- *       500:
- *         description: Internal server error.
- */
 
 export const deleteTodo = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;

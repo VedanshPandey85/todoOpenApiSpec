@@ -11,13 +11,17 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/yamljs": "^0.2.34",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "pg": "^8.13.1",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.10.10",
     "@types/pg": "^8.11.11",
     "@types/swagger-jsdoc": "^6.0.4",
