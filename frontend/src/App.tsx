@@ -1,22 +1,37 @@
-import { useState } from 'react'
-import './App.css'
-import TodoForm from './components/TodoForm'
-import TodoList from './components/TodoList'
+import { useState } from 'react';
+import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
 
-function App() {
-    const [refresh,setRefresh]=useState(false);
-    const handleTodoCreated = ()=>{
-      setRefresh(!refresh)
-    }
-    return(
-      <>
-        <div className="container mx-auto p-4">
-            <h1 className="text-3xl font-bold underline mb-4">Todo App</h1>
-            <TodoForm onTodoCreated={handleTodoCreated} />
-            <TodoList />
-       </div>
-      </>
-    )
-}
+const App = () => {
+  const [error, setError] = useState<string | null>(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-export default App
+  const handleError = (message: string) => {
+    setError(message);
+    setTimeout(() => setError(null), 5000);
+  };
+
+  return (
+    <div className="max-w-3xl mx-auto p-6">
+      <h1 className="text-3xl font-bold text-center mb-8">Todo App</h1>
+      
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          {error}
+        </div>
+      )}
+
+      <TodoForm
+        onTodoCreated={() => setRefreshTrigger(prev => prev + 1)}
+        onError={handleError}
+      />
+      
+      <TodoList
+        onError={handleError}
+        refreshTrigger={refreshTrigger}
+      />
+    </div>
+  );
+};
+
+export default App;

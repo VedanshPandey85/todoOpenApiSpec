@@ -5,11 +5,14 @@ import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 import { JsonObject } from 'swagger-ui-express';
 import path from 'path';
+import cors from 'cors';
 
 const app = express();
 
+
 const swaggerDocument: JsonObject = YAML.load(path.join(__dirname, 'docs', 'openapi.yaml'));
 
+app.use(cors())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(express.json());
